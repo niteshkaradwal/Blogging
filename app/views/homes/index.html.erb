@@ -1,0 +1,15 @@
+<h1><center> "Blogging"</center> </h1>
+<% if current_user %>
+       <h1><center>Welcome <%= DeviseCreateUser.email %> </h1>
+       <center> <%= link_to 'Edit your profile', edit_user_registration_path %> &nbsp;&nbsp;
+       <%= link_to 'logout', destroy_user_session_path, :method => :delete %><br />
+       <%= link_to 'Show my follower', followers_path, :method => :get %><br />
+       <%= link_to 'Create new post', new_post_path, :method => :get %><br />
+       <%= link_to 'show all post', posts_path, :method => :get %><br /></center>
+<% else %>
+       <h1><center>Welcome Guest</h1>
+       
+       <center><%= link_to 'SignIn', new_user_session_path %>&nbsp;&nbsp;
+       <%= link_to 'SignUp', new_user_registration_path %><br />
+       <%= link_to 'All posts', posts_path, :method => :get %><br /></center>
+<% end %>

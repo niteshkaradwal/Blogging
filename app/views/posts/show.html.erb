@@ -1,0 +1,70 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @post.title %>
+</p>
+
+<p>
+  <b>Body:</b>
+  <%= @post.body %>
+</p>
+
+<p>
+  <b>User_id:</b>
+  <%= @post.user_id %>
+</p>
+
+<h2> Comments </h2>
+<% @post.comments.each do|comment| %>
+	<p>
+		<b>Comment</b>
+		<%= comment.content %>
+	</p>
+	
+	<p>
+		<b>Date</b>
+		<%= comment.post_date %>
+	</p>	
+
+	<p>
+		<b>Commenter_id</b>
+		<%= comment.commenter_id %><br />
+	<p>
+<% end %>			
+
+
+<h2> Add a comment:</h2>
+<%= form_for([@post, @post.comments.build]) do |f| %>
+	<div class="field">
+		<%= f.label :content %><br />
+		<%= f.text_area :content %>
+	</div>
+	<div class="field">
+		<%= f.label :datee %><br />
+		<%= f.date_select :post_date %>
+	</div>
+	<div class="field">
+		<%= f.label :post_id %><br />
+		<%= f.text_field :post_id %>
+	</div>	
+	<div class="field">
+		<%= radio_button_tag(:status, "yes") %>
+		<%= label_tag(:status_yes, "yes") %>
+		<%= radio_button_tag(:status, "No") %>
+		<%= label_tag(:status_no, "No") %>
+	</div>
+	<div class="field">
+	  <%= f.label :commenter_id %><br />
+	  <%= f.text_field :commenter_id %>
+	</div> 	
+	<div class="actions">
+		<%= f.submit %>
+	</div>	
+<% end %>
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
+<%= link_to 'Home page', root_path %>
+
+
