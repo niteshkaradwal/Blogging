@@ -14,6 +14,7 @@
   <b>User_id:</b>
   <%= @post.user_id %>
 </p>
+<%= link_to 'Like',  new_post_like_path(@post) %>
 
 <h2> Comments </h2>
 <% @post.comments.each do|comment| %>
