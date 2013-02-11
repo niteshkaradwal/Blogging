@@ -2,7 +2,7 @@
 
 <p>
 	<b>User:</b>
-	<%= current_user.name %>
+	<%= @post.user_id %>
 </p>	
 
 <p>
@@ -15,10 +15,6 @@
   <%= @post.body %>
 </p>
 
-<p>
-  <b>User_id:</b>
-  <%= @post.user_id %>
-</p>
 
 <%= link_to 'Like',  new_post_like_path(@post) %>
 
@@ -31,12 +27,12 @@
 	
 	<p>
 		<b>Date</b>
-		<%= comment.post_date %>
+		<%= Time.now.strftime("%d/%m/%Y") %>
 	</p>	
 
 	<p>
-		<b>Commenter_id</b>
-		<%= comment.commenter_id %><br />
+		<b>Commenter</b>
+		<%= current_user.name%><br />
 	<p>
 <% end %>			
 
@@ -48,22 +44,25 @@
 		<%= f.text_area :content %>
 	</div>
 	<div class="field">
-		<%= f.label :datee %><br />
-		<%= f.date_select :post_date %>
+		<%= f.label :date %><br />
+	<%= Time.now.strftime("%d/%m/%Y") %>
+
+
 	</div>
 	<div class="field">
-		<%= f.label :post_id %><br />
-		<%= f.text_field :post_id %>
+		
+		<%= f.hidden_field :post_id %>
 	</div>	
 	<div class="field">
+		<%= f.label :status %><br />
 		<%= radio_button_tag(:status, "yes") %>
 		<%= label_tag(:status_yes, "yes") %>
 		<%= radio_button_tag(:status, "No") %>
 		<%= label_tag(:status_no, "No") %>
 	</div>
 	<div class="field">
-	  <%= f.label :commenter_id %><br />
-	  <%= f.text_field :commenter_id %>
+	 
+	  <%= f.hidden_field(:commenter_id, :value => current_user.id) %>
 	</div> 	
 	<div class="actions">
 		<%= f.submit %>
