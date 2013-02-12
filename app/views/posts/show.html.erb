@@ -16,18 +16,22 @@
   <%= @post.body %>
 </p>
 <% i=0 %>
+<% count=0 %>
  <% @post.likes.each do |like| %>
+   <% count +=1 %>
 	 <% if like.user_id == current_user.id %>
      <% i=1 %>
      <%= link_to 'Unlike', post_like_path(@post, like), method: :delete %>  
-     <% break %>              
+                  
    <% else %>
      <% i=0 %>
    <% end %>
 <% end %>
  <% if i==0 %>
-   <%= link_to 'Like', new_post_like_path(@post) %>
+   <%= link_to 'Like', new_post_like_path(@post) %>&nbsp;&nbsp;
+  
  <% end %>
+  Total Likes <%= count %>
 <h2> Comments </h2>
 <% @post.comments.each do|comment| %>
 	
@@ -41,18 +45,21 @@
 
 	
 	<% j=0 %>
+	<% countt=0 %>
 	<% comment.likes.each do |likee| %>
+	  <% countt+=1 %>
 		<% if likee.user_id == current_user.id %>
 			<% j=1 %>
 			<%= link_to 'Unlike', post_comment_likecomment_path(@post, comment, likee), method: :delete %>
-			<% break %>
+			
 		<% else %>
 		  <% j=0 %>
 		<% end %>
 	<% end %>
 <% if j==0 %>
 	<%= link_to 'Like', new_post_comment_likecomment_path(@post, comment) %>
-<% end %>	
+<% end %>
+ Total likes <%= countt %>	
 			
 	
 	
