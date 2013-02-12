@@ -1,7 +1,7 @@
 Blogg::Application.routes.draw do
   resources :posts do
 		resources :comments do
-			resources :likes
+			resources :likecomments
 			end
 		resources :likes	
 	end	
