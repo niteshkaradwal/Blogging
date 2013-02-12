@@ -30,20 +30,16 @@
  <% end %>
 <h2> Comments </h2>
 <% @post.comments.each do|comment| %>
-	<p>
-		<b>Comment</b>
-		<%= comment.content %>
-	</p>
 	
 	<p>
-		<b>Date</b>
-		<%= Time.now.strftime("%d/%m/%Y") %>
-	</p>	
+		<%= comment.user.name %>
+		:--  
+	  <%= comment.content %>
+	  :-- 
+		<%= comment.post_date %>
+	
 
-	<p>
-		<b>Commenter</b>
-		<%= comment.user.name %><br />
-	<p>
+	
 	<% j=0 %>
 	<% comment.likes.each do |likee| %>
 		<% if likee.user_id == current_user.id %>
@@ -66,7 +62,7 @@
   
 		
   <% end %>
-  
+  </p>
 <% end %>			
 
 
@@ -78,10 +74,9 @@
 	</div>
 	<div class="field">
 		<%= f.label :date %><br />
-	<%= Time.now.strftime("%d/%m/%Y") %>
-
-
-	</div>
+	  <%= Time.now.strftime("%d/%m/%Y") %>
+	  <%= f.hidden_field(:post_date, :value => Time.now.strftime("%d/%m/%Y")) %>
+	 </div>
 	<div class="field">
 		
 		<%= f.hidden_field :post_id %>
