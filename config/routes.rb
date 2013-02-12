@@ -2,9 +2,12 @@ Blogg::Application.routes.draw do
   resources :posts do
 		resources :comments do
 			resources :likecomments
-			end
+		end
 		resources :likes	
 	end	
+	resources :likes do
+		resources :unlikes
+	end
 
 
   resources :followers
