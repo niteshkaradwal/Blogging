@@ -1,8 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  
 	<b>User:</b>
-	<%= @post.user_id %>
+	<%= @post.user.name %>
 </p>	
 
 <p>
@@ -14,10 +15,12 @@
   <b>Body:</b>
   <%= @post.body %>
 </p>
-
-
-<%= link_to 'Like',  new_post_like_path(@post) %>
-
+<% if @post.user.id == current_user.id %>
+	<%= link_to 'Like', new_post_like_path(@post) %>
+	<%= link_to 'Destroy', posts_path(@post), method: :delete %>
+<% else %>	
+	<%= link_to 'Like',  new_post_like_path(@post) %>
+<% end %>
 <h2> Comments </h2>
 <% @post.comments.each do|comment| %>
 	<p>
@@ -31,9 +34,18 @@
 	</p>	
 
 	<p>
+		
 		<b>Commenter</b>
-		<%= current_user.name%><br />
+		<%= comment.user.name %><br />
 	<p>
+	<% if comment.commenter_id == current_user.id || @post.user.id == current_user.id %>
+		<td><%= link_to 'Like', new_post_comment_likecomment_path(@post, comment) %>
+    <td><%= link_to 'Destroy', [comment.post, comment], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  <% else %>
+		<td><%= link_to 'Like', new_post_comment_likecomment_path(@post, comment) %>
+  
+  <% end %>
+  
 <% end %>			
 
 
