@@ -15,12 +15,19 @@
   <b>Body:</b>
   <%= @post.body %>
 </p>
-<% if @post.user.id == current_user.id %>
-	<%= link_to 'Like', new_post_like_path(@post) %>
-	<%= link_to 'Destroy', posts_path(@post), method: :delete %>
-<% else %>	
-	<%= link_to 'Like',  new_post_like_path(@post) %>
+<% i=0 %>
+ <% @post.likes.each do |like| %>
+	 <% if like.user_id == current_user.id %>
+     <% i=1 %>
+     <%= link_to 'Unlike', post_like_path(@post, like), method: :delete %>  
+     <% break %>              
+   <% else %>
+     <% i=0 %>
+   <% end %>
 <% end %>
+ <% if i==0 %>
+   <%= link_to 'Like', new_post_like_path(@post) %>
+ <% end %>
 <h2> Comments </h2>
 <% @post.comments.each do|comment| %>
 	<p>
@@ -34,16 +41,30 @@
 	</p>	
 
 	<p>
-		
 		<b>Commenter</b>
 		<%= comment.user.name %><br />
 	<p>
+	<% j=0 %>
+	<% comment.likes.each do |likee| %>
+		<% if likee.user_id == current_user.id %>
+			<% j=1 %>
+			<%= link_to 'Unlike', post_comment_likecomment_path(@post, comment, likee), method: :delete %>
+			<% break %>
+		<% else %>
+		  <% j=0 %>
+		<% end %>
+	<% end %>
+<% if j==0 %>
+	<%= link_to 'Like', new_post_comment_likecomment_path(@post, comment) %>
+<% end %>	
+			
+	
+	
 	<% if comment.commenter_id == current_user.id || @post.user.id == current_user.id %>
-		<td><%= link_to 'Like', new_post_comment_likecomment_path(@post, comment) %>
+		
     <td><%= link_to 'Destroy', [comment.post, comment], method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  <% else %>
-		<td><%= link_to 'Like', new_post_comment_likecomment_path(@post, comment) %>
   
+		
   <% end %>
   
 <% end %>			
