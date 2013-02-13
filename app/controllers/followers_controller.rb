@@ -2,13 +2,14 @@ class FollowersController < ApplicationController
   # GET /followers
   # GET /followers.json
   def index
-    @followers = Follower.all
+    @users = User.all
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @followers }
+      format.json { render json: @users }
     end
   end
-
+  
+  
   # GET /followers/1
   # GET /followers/1.json
   def show
@@ -25,6 +26,8 @@ class FollowersController < ApplicationController
   # GET /followers/new.json
   def new
     @follower = Follower.new
+    @followers = Follower.all
+    @users = User.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,11 +44,11 @@ class FollowersController < ApplicationController
   # POST /followers.json
   def create
     @follower = Follower.new(params[:follower])
-
+		
     respond_to do |format|
       if @follower.save
-        format.html { redirect_to @follower, notice: 'Follower was successfully created.' }
-        format.json { render json: @follower, status: :created, location: @follower }
+        format.html { redirect_to new_follower_path, notice: 'Follower was successfully created.' }
+        format.json { render json: new_follower_path, status: :created, location: new_follower_path }
       else
         format.html { render action: "new" }
         format.json { render json: @follower.errors, status: :unprocessable_entity }
@@ -76,7 +79,7 @@ class FollowersController < ApplicationController
     @follower.destroy
 
     respond_to do |format|
-      format.html { redirect_to followers_url }
+      format.html { redirect_to new_follower_path }
       format.json { head :no_content }
     end
   end
