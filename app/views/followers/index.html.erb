@@ -13,7 +13,7 @@
 	<% user.followers.each do |follower| %>
 		<% if follower.follower_id == current_user.id %>
 			<tr>
-				<td><%= user.id %></td>
+				
 				<td><%= user.name %></td>
 				
 			 </tr>
@@ -27,4 +27,4 @@
 <br />
 
 <%= link_to 'Want to follow someone', new_follower_path %>
-<td><%= link_to 'back to the home page', root_path %>
+<td><%= link_to 'home page', root_path %>

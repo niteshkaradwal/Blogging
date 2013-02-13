@@ -4,8 +4,7 @@ class FollowersController < ApplicationController
   def index
     @users = User.all
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @users }
+      format.html
     end
   end
   
@@ -17,7 +16,7 @@ class FollowersController < ApplicationController
     @follower = Follower.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html 
       format.json { render json: @follower }
     end
   end
