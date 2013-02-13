@@ -2,7 +2,6 @@
 
 <table>
   <tr>
-    
     <th>Name</th>
     <th></th>
     <th></th>
@@ -13,12 +12,9 @@
 	<% user.followers.each do |follower| %>
 		<% if follower.follower_id == current_user.id %>
 			<tr>
-				
 				<td><%= user.name %></td>
-				
 			 </tr>
 		<% else %>
-			 	
 		<% end %>
 	<% end %>
 <% end %>		

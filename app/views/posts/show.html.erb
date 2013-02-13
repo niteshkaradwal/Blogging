@@ -1,8 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  
-	<b>User:</b>
+  <b>User:</b>
 	<%= @post.user.name %>
 </p>	
 
@@ -17,62 +16,47 @@
 </p>
 <% i=0 %>
 <% count=0 %>
- <% @post.likes.each do |like| %>
-   <% count +=1 %>
-	 <% if like.user_id == current_user.id %>
-     <% i=1 %>
-     <%= link_to 'Unlike', post_like_path(@post, like), method: :delete %>  
-                  
-   <% else %>
-     <% i=0 %>
-   <% end %>
+<% @post.likes.each do |like| %>
+	<% count +=1 %>
+	<% if like.user_id == current_user.id %>
+		<% i=1 %>
+    <%= link_to 'Unlike', post_like_path(@post, like), method: :delete %>  
+  <% else %>
+    <% i=0 %>
+  <% end %>
 <% end %>
- <% if i==0 %>
-   <%= link_to 'Like', new_post_like_path(@post) %>&nbsp;&nbsp;
-  
- <% end %>
-  Total Likes <%= count %>
+<% if i==0 %>
+	<%= link_to 'Like', new_post_like_path(@post) %>&nbsp;&nbsp;
+<% end %>
+Total Likes <%= count %>
 <h2> Comments </h2>
 <% @post.comments.each do|comment| %>
-	cetral infotech
 	<p>
-		<%= comment.user.name %>
+		<b><%= comment.user.name %></b>
 		:--  
 	  <%= comment.content %>
 	  :-- 
 		<%= comment.post_date %><br/>
-	
-
-	
-	<% j=0 %>
-	<% countt=0 %>
-	<% comment.likes.each do |likee| %>
-	  <% countt+=1 %>
-		<% if likee.user_id == current_user.id %>
-			<% j=1 %>
-			<%= link_to 'Unlike', post_comment_likecomment_path(@post, comment, likee), method: :delete %>
-			
-		<% else %>
-		  <% j=0 %>
+		<% j=0 %>
+		<% countt=0 %>
+		<% comment.likes.each do |likee| %>
+			<% countt+=1 %>
+			<% if likee.user_id == current_user.id %>
+				<% j=1 %>
+				<%= link_to 'Unlike', post_comment_likecomment_path(@post, comment, likee), method: :delete %>
+			<% else %>
+				<% j=0 %>
+			<% end %>
 		<% end %>
-	<% end %>
-<% if j==0 %>
-	<%= link_to 'Like', new_post_comment_likecomment_path(@post, comment) %>
-<% end %>
- Total likes <%= countt %>	
-			
-	
-	
-	<% if comment.commenter_id == current_user.id || @post.user.id == current_user.id %>
-		
-    <td><%= link_to 'Destroy', [comment.post, comment], method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  
-		
-  <% end %>
+		<% if j==0 %>
+		<%= link_to 'Like', new_post_comment_likecomment_path(@post, comment) %>
+		<% end %>
+		Total likes <%= countt %>	
+		<% if comment.commenter_id == current_user.id || @post.user.id == current_user.id %>
+		<td><%= link_to 'Destroy', [comment.post, comment], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+		<% end %>
   </p>
 <% end %>			
-
-
 <h2> Add a comment:</h2>
 <%= form_for([@post, @post.comments.build]) do |f| %>
 	<div class="field">
@@ -85,14 +69,12 @@
 	  <%= f.hidden_field(:post_date, :value => Time.now.strftime("%d/%m/%Y")) %>
 	 </div>
 	<div class="field">
-		
 		<%= f.hidden_field :post_id %>
 	</div>	
 	<div class="field">
 		<%= f.hidden_field(:status, :value => "yes") %>
 	</div>
 	<div class="field">
-	 
 	  <%= f.hidden_field(:commenter_id, :value => current_user.id) %>
 	</div> 	
 	<div class="actions">
