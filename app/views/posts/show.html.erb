@@ -89,11 +89,7 @@
 		<%= f.hidden_field :post_id %>
 	</div>	
 	<div class="field">
-		<%= f.label :status %><br />
-		<%= radio_button_tag(:status, "yes") %>
-		<%= label_tag(:status_yes, "yes") %>
-		<%= radio_button_tag(:status, "No") %>
-		<%= label_tag(:status_no, "No") %>
+		<%= f.hidden_field(:status, :value => "yes") %>
 	</div>
 	<div class="field">
 	 
