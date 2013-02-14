@@ -8,19 +8,40 @@ class CommentsController < ApplicationController
   
   def destroy
     @comment = Comment.find(params[:id])
-    if @comment.status == true 
-      @comment.destroy
-      @post = Post.find(params[:post_id])
-      redirect_to post_path(@post)
+    @post = Post.find(params[:post_id])
+    @user = @comment.post_id
+  
+    if Post.find(@user).user_id == current_user.id || current_user.id == @comment.commenter_id
+      if @comment.status == true 
+        @comment.destroy
+        
+        redirect_to post_path(@post)
+      else
+        @comments = @post.comments.all
+        i=0
+        @comments.each do |comment|
+          @comment.destroy
+          if comment.status == false
+            i=1
+          else
+            i=0
+          end
+        end
+        if i==0
+          
+          redirect_to comments_path
+        else
+          
+          redirect_to root_path
+        end  
+      end 
     else
-      @comment.destroy
-      redirect_to comments_path
+       
     end  
   end
   
   def index
     @posts = current_user.posts.all
-    
   end
   
   def update
@@ -30,12 +51,9 @@ class CommentsController < ApplicationController
     @comments = @post.comments.all
     i=0
     @comments.each do |comment|
-     
       if comment.status == false
         i=1
       end
-      
-     
     end
     if i==1
       redirect_to comments_path

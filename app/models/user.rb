@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :name, :password, :password_confirmation, :remember_me, :birth_date, :gender
+  validates :gender, :presence => true
+  
   # attr_accessible :title, :body
   has_many :followers
   has_many :follows, :class_name => "Follower"
