@@ -1,0 +1,15 @@
+<b> Name <b>&nbsp;&nbsp;
+<b> Comment </b><br/>
+ 
+<% @posts.each do |post| %>
+  <% post.comments.each do |comment| %>
+    <% if comment.status == false %>
+      <%= comment.user.name %>
+      :--
+      <%= comment.content %>
+      <%= link_to 'Accept', post_comment_path(post,comment), method: :put %><br/>
+    <% end %>
+  <% end %>
+<% end %>
+
+    

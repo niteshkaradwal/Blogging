@@ -36,6 +36,8 @@ class PostsController < ApplicationController
   # GET /posts/1/edit
   def edit
     @post = Post.find(params[:id])
+    @comment = Comment.find(params[:id])
+    
   end
 
   # POST /posts
@@ -58,23 +60,29 @@ class PostsController < ApplicationController
   # PUT /posts/1
   # PUT /posts/1.json
   def update
+    @comment = Comment.find(params[:id])
     @post = Post.find(params[:id])
-
-    respond_to do |format|
-      if @post.update_attributes(params[:post])
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
+    @comments = @post.comments.all
+    @comment.update_attributesss(:status => true)
+    i=0
+    @comments.each do |comment|
+      if comment.status == false
+        i=1
       end
+      debugger
     end
+    if i==1
+      redirect_to comments_path
+    else
+      redirect_to root_path
+    end  
   end
 
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
-    @post = Post.find(params[:id])
+    @post = current_user.posts.find(params[:id])
+    #if @post
     @post.destroy
 
     respond_to do |format|

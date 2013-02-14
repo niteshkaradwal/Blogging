@@ -1,18 +1,27 @@
-<link rel="stylesheet" href="/twitter-bootstrap/twitter-bootstrap-v2/docs/assets/css/bootstrap.css">
 
 
+<% i=0 %>
 <h1><center> "Blogging"</center> </h1>
 <% if current_user %>
-       <h1><center>Welcome <%= current_user.name %></h1>
-        <p align = right><%= link_to 'logout', destroy_user_session_path, :method => :delete %></p>
-       <center> <%= link_to 'Edit profile', edit_user_registration_path %> &nbsp;&nbsp;&nbsp;&nbsp;
-       <%= link_to 'Bloggers', new_follower_path, :method => :get %><br />
-       <%= link_to 'New post', new_post_path, :method => :get %>&nbsp;&nbsp;&nbsp;&nbsp;
-       <%= link_to 'Show posts', posts_path, :method => :get %></center>
+  <h1><center>Welcome <%= current_user.name %></h1>
+  <p align = right><%= link_to 'logout', destroy_user_session_path, :method => :delete %></p>
+  <center> <%= link_to 'Edit profile', edit_user_registration_path %> &nbsp;&nbsp;&nbsp;&nbsp;
+  <%= link_to 'Bloggers', new_follower_path, :method => :get %><br />
+  <%= link_to 'New post', new_post_path, :method => :get %>&nbsp;&nbsp;&nbsp;&nbsp;
+  <%= link_to 'Show posts', posts_path, :method => :get %></center>
+  <% current_user.posts.each do |post| %>
+    <% post.comments.each do |comment| %>
+      <% if comment.status == false %>
+        <% i=1 %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% if i==1 %>
+    <%= link_to 'Notification for comments', comments_path %>
+  <% end %>   
 <% else %>
-       <h1><center>Welcome Guest</h1>
-       
-       <center><%= link_to 'SignIn', new_user_session_path %>&nbsp;&nbsp;
-       <%= link_to 'SignUp', new_user_registration_path %><br />
-       <%= link_to 'All posts', posts_path, :method => :get %><br /></center>
+  <h1><center>Welcome Guest</h1>
+  <center><%= link_to 'SignIn', new_user_session_path %>&nbsp;&nbsp;
+  <%= link_to 'SignUp', new_user_registration_path %><br />
+  <%= link_to 'All posts', posts_path, :method => :get %><br /></center>
 <% end %>

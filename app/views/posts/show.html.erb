@@ -31,31 +31,38 @@
 Total Likes <%= count %>
 <h2> Comments </h2>
 <% @post.comments.each do|comment| %>
-	<p>
-		<b><%= comment.user.name %></b>
-		:--  
-	  <%= comment.content %>
-	  :-- 
-		<%= comment.post_date %><br/>
-		<% j=0 %>
-		<% countt=0 %>
-		<% comment.likes.each do |likee| %>
-			<% countt+=1 %>
-			<% if likee.user_id == current_user.id %>
-				<% j=1 %>
-				<%= link_to 'Unlike', post_comment_likecomment_path(@post, comment, likee), method: :delete %>
-			<% else %>
-				<% j=0 %>
+	<% if comment.status == true %>
+	
+		<p>
+			<b><%= comment.user.name %></b>
+			:--  
+			<%= comment.content %>
+			:-- 
+			<%= comment.post_date %><br/>
+			<% j=0 %>
+			<% countt=0 %>
+			<% comment.likes.each do |likee| %>
+				<% countt+=1 %>
+				<% if likee.user_id == current_user.id %>
+					<% j=1 %>
+					<%= link_to 'Unlike', post_comment_likecomment_path(@post, comment, likee), method: :delete %>
+				<% else %>
+					<% j=0 %>
+				<% end %>
 			<% end %>
-		<% end %>
-		<% if j==0 %>
-		<%= link_to 'Like', new_post_comment_likecomment_path(@post, comment) %>
-		<% end %>
-		Total likes <%= countt %>	
-		<% if comment.commenter_id == current_user.id || @post.user.id == current_user.id %>
-		<td><%= link_to 'Destroy', [comment.post, comment], method: :delete, data: { confirm: 'Are you sure?' } %></td>
-		<% end %>
-  </p>
+			<% if j==0 %>
+			<%= link_to 'Like', new_post_comment_likecomment_path(@post, comment) %>
+			<% end %>
+			Total likes <%= countt %>	
+			<% if comment.commenter_id == current_user.id || @post.user.id == current_user.id %>
+			<td><%= link_to 'Destroy', [comment.post, comment], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+			<% end %>
+		</p>
+	<% else %>
+		
+		<b><%= comment.user.name %></b>
+		 Your comment's Request is pending <br/>
+	<% end %>	
 <% end %>			
 <h2> Add a comment:</h2>
 <%= form_for([@post, @post.comments.build]) do |f| %>
@@ -72,7 +79,7 @@ Total Likes <%= count %>
 		<%= f.hidden_field :post_id %>
 	</div>	
 	<div class="field">
-		<%= f.hidden_field(:status, :value => "yes") %>
+		<%= f.hidden_field(:status, :value => false) %>
 	</div>
 	<div class="field">
 	  <%= f.hidden_field(:commenter_id, :value => current_user.id) %>
