@@ -21,17 +21,15 @@
   <% end %>  
   <% @users = current_user.followers %>
   <% @users.each do |user| %>
-    
     <% @name = User.find(user.follower_id) %>
-      
     <% p=Post.where("user_id = ?", @name.id) %>
-      <% if p.present? %>
+    <% if p.present? %>
       <%= @name.name %> :--
       <% p.each do |pp| %>
         <%= pp.title %>&nbsp;&nbsp;&nbsp;&nbsp;
         <%= pp.body %><br/>
       <% end %>
-      <% end %>  
+    <% end %>  
   <% end %>  
 <% else %>
   <h1><center>Welcome Guest</h1>
