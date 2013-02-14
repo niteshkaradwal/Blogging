@@ -63,7 +63,7 @@ class PostsController < ApplicationController
     @comment = Comment.find(params[:id])
     @post = Post.find(params[:id])
     @comments = @post.comments.all
-    @comment.update_attributesss(:status => true)
+    @comment.update_attributes(:status => true)
     i=0
     @comments.each do |comment|
       if comment.status == false
