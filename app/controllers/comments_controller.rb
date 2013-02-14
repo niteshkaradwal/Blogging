@@ -8,9 +8,14 @@ class CommentsController < ApplicationController
   
   def destroy
     @comment = Comment.find(params[:id])
-    @comment.destroy
-    @post = Post.find(params[:post_id])
-    redirect_to post_path(@post)
+    if @comment.status == true 
+      @comment.destroy
+      @post = Post.find(params[:post_id])
+      redirect_to post_path(@post)
+    else
+      @comment.destroy
+      redirect_to comments_path
+    end  
   end
   
   def index
