@@ -19,7 +19,7 @@
 			
 				<td><%= user.name %></td>
 		
-				<% current_user.followers.each do |followe| %>
+				<% current_user.follows.each do |followe| %>
 		
 					<% if followe.user_id == current_user.id && followe.follower_id == user.id %>
 						<td><%= button_to 'Unfollow', followe, method: :delete, data: { confirm: 'are you sure?' } %></td>

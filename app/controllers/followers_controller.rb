@@ -1,4 +1,5 @@
 class FollowersController < ApplicationController
+before_filter :authenticate_user!
   # GET /followers
   # GET /followers.json
   def index
@@ -12,7 +13,7 @@ class FollowersController < ApplicationController
   # GET /followers/1
   # GET /followers/1.json
   def show
-		
+    
     @follower = Follower.find(params[:id])
 
     respond_to do |format|
@@ -43,7 +44,7 @@ class FollowersController < ApplicationController
   # POST /followers.json
   def create
     @follower = Follower.new(params[:follower])
-		
+    
     respond_to do |format|
       if @follower.save
         format.html { redirect_to new_follower_path, notice: 'Follower was successfully created.' }
