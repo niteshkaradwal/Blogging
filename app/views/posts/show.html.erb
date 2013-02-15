@@ -47,10 +47,10 @@ Total Likes <%= count %>
       <% j=0 %>
       <% countt=0 %>
       <% comment.likes.each do |likee| %>
-        <% countt+=1 %>
         <% if likee.user_id == current_user.id %>
           <% j=1 %>
           <%= link_to 'Unlike', post_comment_likecomment_path(@post, comment, likee), method: :delete %>
+          <% break %>
         <% else %>
           <% j=0 %>
         <% end %>
@@ -58,6 +58,9 @@ Total Likes <%= count %>
       <% if j==0 %>
         <%= link_to 'Like', new_post_comment_likecomment_path(@post, comment) %>
       <% end %>
+      <% comment.likes.each do |likee| %>
+        <% countt+=1 %>
+      <% end %>  
       Total likes <%= countt %> 
       <% if comment.commenter_id == current_user.id || @post.user.id == current_user.id %>
         <td><%= link_to 'Destroy', [comment.post, comment], method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -9,23 +9,25 @@
   <%= link_to 'Bloggers', new_follower_path, :method => :get %><br />
   <%= link_to 'New post', new_post_path, :method => :get %>&nbsp;&nbsp;&nbsp;&nbsp;
   <%= link_to 'Show posts', posts_path, :method => :get %></center><br/><br/>
+  <% count = 0 %>
   <% current_user.posts.each do |post| %>
     <% post.comments.each do |comment| %>
       <% if comment.status == false %>
+        <% count+=1 %>
         <% i=1 %>
       <% end %>
     <% end %>
   <% end %>
   <% if i==1 %>
-    <%= link_to 'Notification for comments', comments_path %>
+    <%= link_to "Notification #{ count }", comments_path %><br/><br/>
   <% end %>  
   <% @users = current_user.followers %>
   <% @users.each do |user| %>
     <% @name = User.find(user.follower_id) %>
     <% p=Post.where("user_id = ?", @name.id) %>
     <% if p.present? %>
-      <%= @name.name %> :--
       <% p.each do |pp| %>
+      <%= link_to " #{ @name.name } ", pp %> :--
         <%= pp.title %>&nbsp;&nbsp;&nbsp;&nbsp;
         <%= pp.body %><br/>
       <% end %>

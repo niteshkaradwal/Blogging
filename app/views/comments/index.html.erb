@@ -5,6 +5,7 @@
   <% post.comments.each do |comment| %>
     <% if comment.status == false %>
       <% if i==0 %>
+        <b> Post :-- </b>
         <%= post.body %><br/>
         <% i+=1 %>
       <% end %>   
