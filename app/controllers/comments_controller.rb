@@ -17,21 +17,23 @@ class CommentsController < ApplicationController
         
         redirect_to post_path(@post)
       else
-        @comments = @post.comments.all
+        
         i=0
+        @comment.destroy
+        @comments = @post.comments.all
         @comments.each do |comment|
-          @comment.destroy
           if comment.status == false
             i=1
+            break
           else
             i=0
           end
         end
-        if i==0
+        if i==1
           
           redirect_to comments_path
         else
-          
+         
           redirect_to root_path
         end  
       end 
