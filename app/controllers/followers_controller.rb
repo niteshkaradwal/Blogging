@@ -53,6 +53,8 @@ before_filter :authenticate_user!
 
   def destroy
     @follower = Follower.find(params[:id])
+    if current_user.id == @follower.user_id
+    end
     @follower.destroy
 
     respond_to do |format|
