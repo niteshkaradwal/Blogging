@@ -13,18 +13,19 @@ $(document).ready(function(){
 
 <h1>Listing Registered users</h1>
 
-<table id= "tab">
+<table id= "tab" class = "table table-striped">
   <tr>
-    <th>User_id</th>
-    <th>Email_id</th> 
     <th>Name</th>
-    <th></th>
+    <th>Email_id</th> 
+    
+    
     <th></th>
     <th></th>
   </tr>
 
   <%count = 0 %>
   <% @users.each do |user| %>
+  
     <% count += 1 %>
     <% if user.id == current_user.id %>
       <% next %>
@@ -33,6 +34,8 @@ $(document).ready(function(){
     <tr>  
       <td><%= user.name %>&nbsp;&nbsp;&nbsp;&nbsp;</td>
       <td><%= user.email %></td>
+     
+      
       <% current_user.follows.each do |followe| %>
         <% if followe.user_id == current_user.id && followe.follower_id == user.id %>
           <td><%= button_to 'Unfollow', followe, method: :delete, data: { confirm: 'are you sure?' } , :class => "btn btn-mini btn-primary"%></td>
