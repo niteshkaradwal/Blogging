@@ -1,3 +1,45 @@
 // Place all the styles related to the Posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.tablescroll {
+    font: 12px normal Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+ 
+.tablescroll td, 
+.tablescroll_wrapper,
+.tablescroll_head,
+.tablescroll_foot { 
+    border:1px solid #ccc;
+}
+ 
+.tablescroll td {
+    padding:3px 5px;
+    border-bottom:0;
+    border-right:0; 
+}
+ 
+.tablescroll_wrapper {
+    background-color:#fff;
+    border-left:0;
+}
+ 
+.tablescroll_head,
+.tablescroll_foot { 
+    background-color:#eee;
+    border-left:0;
+    border-top:0;
+    font-size:11px;
+    font-weight:bold;
+}
+ 
+.tablescroll_head { 
+    margin-bottom:3px;
+}
+ 
+.tablescroll_foot { 
+    margin-top:3px;
+}
+ 
+.tablescroll tbody tr.first td { 
+    border-top:0; 
+}
