@@ -1,12 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+</script>
+<script>
+
+$(document).ready(function(){
+    $("#bl").hide()
+    $("#bl").slideDown("slow");
+    $("#blo").hide()
+    $("#blo").slideDown("slow"); 
+    
+    $("#neww").slideUp("slow");
+    $("#neww").show(1000)
+    $("#shw").slideUp("slow");
+    $("#shw").show(1000)
+}); 
+</script>
+
   <title>Blogg</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body >
+    
+    <ul class="nav nav-tabs" >
+     
+        <li id = "bl"><%= link_to 'Blogging' , root_path, :class => "btn btn-info" %></li>
+        <li id = "blo"><%= link_to 'Bloggers', new_follower_path, :method => :get, :class => "btn btn-info" %></li>
+        <li id = "neww"><%= link_to 'New post', new_post_path, :method => :get, :class => "btn btn-info" %></li>
+        <li id = "shw"><%= link_to 'Show all posts', posts_path, :method => :get, :class => "btn btn-info" %></li>
+        <% if current_user %>
+            <ul class="nav nav-tabs">
+              <li class="dropdown pull-right">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  <%= current_user.name %>
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <%= link_to 'logout', destroy_user_session_path, :method => :delete %><br/>
+                  <%= link_to 'Edit profile', edit_user_registration_path%></p>
+                </ul>
+              </li>
+            </ul>
+        <% end %>  
+      
+    </ul>
+  
+  </div>
+  
 
 <%= yield %>
 

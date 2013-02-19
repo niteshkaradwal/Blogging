@@ -1,14 +1,26 @@
 
+<head>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+</script>
+<script>
+$(document).ready(function(){
+  
+    $("#foll").hide();
+    $("#foll").show(1000);
+  
+});
+</script>
+</head>
+
 
 <% i=0 %>
-<h1><center> "Blogging"</center> </h1>
+
 <% if current_user %>
-  <h1><center>Welcome <%= current_user.name %></h1>
-  <p align = right><%= link_to 'logout', destroy_user_session_path, :method => :delete %></p>
-  <center> <%= link_to 'Edit profile', edit_user_registration_path %> &nbsp;&nbsp;&nbsp;&nbsp;
-  <%= link_to 'Bloggers', new_follower_path, :method => :get %><br />
-  <%= link_to 'New post', new_post_path, :method => :get %>&nbsp;&nbsp;&nbsp;&nbsp;
-  <%= link_to 'Show all posts', posts_path, :method => :get %></center><br/><br/>
+  <center>Welcome <%= current_user.name %><br/><br/>
+  
+  
+
+
   <% count = 0 %>
   <% current_user.posts.each do |post| %>
     <% post.comments.each do |comment| %>
@@ -21,28 +33,25 @@
   <% if i==1 %>
     <%= link_to "Notification #{ count }", comments_path %><br/><br/>
   <% end %>  
-  <b> Follow's posts </b><br/>
+  <b id = "foll"> Follow's posts </b><br/>
   <% @users = current_user.followers %>
   <% @users.each do |user| %>
     <% @name = User.find(user.follower_id) %>
-    <% p=Post.where("user_id = ?", @name.id) %>
-    <% if p.present? %>
-      
-      <% p.each do |pp| %>
-      
-      <%= link_to " #{ @name.name } ", pp %> 
-            <%= @name.email %> <br/>
-            
-        <%= pp.title %>&nbsp;&nbsp;&nbsp;&nbsp;
+    <% @post=Post.where("user_id = ?", @name.id) %>
+    <% if @post.present? %>
+      <% @post.each do |pp| %>
+        <%= link_to " #{ @name.name } ", pp, :class => "btn btn-mini btn-primary" %> 
+        <%= @name.email %> <br/>
+       <id= Bodyy> <%= pp.title %>&nbsp;&nbsp;&nbsp;&nbsp;
         <%= pp.body %><br/><br/>
+        
       <% end %>
     <% end %>  
   <% end %>  
 <% else %>
   <h1><center>Welcome Guest</h1>
-  <center><%= link_to 'SignIn', new_user_session_path %>&nbsp;&nbsp;
-  <%= link_to 'SignUp', new_user_registration_path %><br />
-  <%= link_to 'All posts', posts_path, :method => :get %><br /></center>
+  <center><%= link_to 'SignIn', new_user_session_path,  :class => "btn btn-primary" %>&nbsp;&nbsp;
+  <%= link_to 'SignUp', new_user_registration_path, :class => "btn btn-primary" %><br />
 <% end %>
 
 

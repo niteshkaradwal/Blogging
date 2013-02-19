@@ -1,6 +1,17 @@
-<h1>Your Followers</h1>
 
-<table>
+<head>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+</script>
+<script>
+$(document).ready(function(){
+  
+    $("#tab").hide();
+    $("#tab").show(1000);
+  
+});
+</script>
+<h1>Your Followers</h1>
+<table id="tab">
   <tr>
     <th>Name</th>
     <th>Email</th>
@@ -17,7 +28,6 @@
         <td><%= user.name %></td>
         <td><%= user.email %></td>
        </tr>
-    <% else %>
     <% end %>
   <% end %>
 <% end %>   
@@ -26,5 +36,5 @@ Total followers <%= count %>
 
 <br />
 
-<%= link_to 'Want to follow someone', new_follower_path %>
-<td><%= link_to 'home page', root_path %>
+<%= link_to 'Want to follow someone', new_follower_path, :class => "btn btn-mini btn-primary" %>
+<td><%= link_to 'home page', root_path, :class => "btn btn-mini btn-primary" %>

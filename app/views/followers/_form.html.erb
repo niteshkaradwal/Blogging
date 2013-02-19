@@ -1,6 +1,19 @@
+<head>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+</script>
+<script>
+$(document).ready(function(){
+  
+    $("#tab").hide();
+    $("#tab").show(1000);
+  
+});
+</script>
+</head>
+
 <h1>Listing Registered users</h1>
 
-<table>
+<table id= "tab">
   <tr>
     <th>User_id</th>
     <th>Email_id</th> 
@@ -22,7 +35,7 @@
       <td><%= user.email %></td>
       <% current_user.follows.each do |followe| %>
         <% if followe.user_id == current_user.id && followe.follower_id == user.id %>
-          <td><%= button_to 'Unfollow', followe, method: :delete, data: { confirm: 'are you sure?' } %></td>
+          <td><%= button_to 'Unfollow', followe, method: :delete, data: { confirm: 'are you sure?' } , :class => "btn btn-mini btn-primary"%></td>
           <% i=1 %> 
           <% break %>
         <% else %>
@@ -44,12 +57,12 @@
           <%= f.hidden_field(:user_id, :value => current_user.id) %>
           <%= f.hidden_field(:follower_id, :value => user.id) %>
           <div class="actions">
-            <td><%= f.submit "Follow" %></td>
+            <td><%= f.submit "Follow", :class => "btn btn-mini btn-success" %></td>
           </div>
         <% end %>
       <% end %>
     </tr>
   <% end %>
 </table>
-Total Registers Users <%= count %><br/>
-    <%= link_to 'View followers', followers_path %>
+Total Registers Users <%= count %><br/><br/>
+<%= link_to 'View followers', followers_path, :class => "btn btn-mini btn-primary" %>

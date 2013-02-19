@@ -1,3 +1,4 @@
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -15,26 +16,19 @@
   <%= @post.body %>
 </p>
 
-<% i=0 %>
-<% count=0 %>
-<% @post.likes.each do |like| %>
-  <% if like.user_id == current_user.id %>
-    <% i=1 %>
-    <%= link_to 'Unlike', post_like_path(@post, like), method: :delete %>
-    <% break %> 
-  <% else %>
-    <% i=0 %>
-  <% end %>
+<% count = 0 %>
+<% if @post.likes.where(:user_id => current_user.id)[0].blank? %>
+  <%= link_to "like", new_post_like_path(@post) %>
+<% else %>
+  <% like = @post.likes.where(:user_id => current_user.id)[0] %>
+  <%= link_to "Unlike", post_like_path(@post, like.id), method: :delete %>
 <% end %>
-
-<% if i==0 %>
-  <%= link_to 'Like', new_post_like_path(@post) %>&nbsp;&nbsp;
+<% @post.likes.each do |like| %>  
+  <% count+=1 %>
 <% end %>
-<% @post.likes.each do |like| %>
-  <% count +=1 %>
-<% end %>  
-Total Likes <%= count %>
+<%= count %>
 
+  
 <h2> Comments </h2>
 <% @post.comments.each do|comment| %>
   <% if comment.status == true %>
@@ -46,24 +40,21 @@ Total Likes <%= count %>
       <%= comment.post_date %><br/>
       <% j=0 %>
       <% countt=0 %>
-      <% comment.likes.each do |likee| %>
-        <% if likee.user_id == current_user.id %>
-          <% j=1 %>
-          <%= link_to 'Unlike', post_comment_likecomment_path(@post, comment, likee), method: :delete %>
-          <% break %>
-        <% else %>
-          <% j=0 %>
-        <% end %>
+      <% if comment.likes.where(:user_id == current_user.id)[0].blank? %>
+        
+        <%= link_to 'Like', new_post_comment_likecomment_path(@post.id, comment.id), :class => "btn btn-link" %>
+          
+      <% else %>
+        <% likee = comment.likes.where(:user_id == current_user.id) %>
+        <%= link_to 'Unlike', post_comment_likecomment_path(@post.user_id, comment.id, likee), method: :delete, :class => "btn btn-link" %>
+        
       <% end %>
-      <% if j==0 %>
-        <%= link_to 'Like', new_post_comment_likecomment_path(@post, comment) %>
-      <% end %>
-      <% comment.likes.each do |likee| %>
+      <% comment.likes.each do |like| %>
         <% countt+=1 %>
       <% end %>  
       Total likes <%= countt %> 
       <% if comment.commenter_id == current_user.id || @post.user.id == current_user.id %>
-        <td><%= link_to 'Destroy', [comment.post, comment], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', [comment.post, comment], method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-link" %></td>
       <% end %>
     </p>
   <% else %>
