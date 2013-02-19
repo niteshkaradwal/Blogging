@@ -61,7 +61,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.find(params[:id])
     if @post.user_id == current_user.id
       @post.destroy
-        respond_to do |format|
+      respond_to do |format|
         format.html { redirect_to posts_url }
       end
     end  

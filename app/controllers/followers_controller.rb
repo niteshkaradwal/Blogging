@@ -10,7 +10,7 @@ before_filter :authenticate_user!
   
   def show
     @follower = Follower.find(params[:id])
-      respond_to do |format|
+    respond_to do |format|
       format.html 
       format.json { render json: @follower }
     end
@@ -54,9 +54,8 @@ before_filter :authenticate_user!
   def destroy
     @follower = Follower.find(params[:id])
     if current_user.id == @follower.user_id
+      @follower.destroy
     end
-    @follower.destroy
-
     respond_to do |format|
       format.html { redirect_to new_follower_path }
     end
