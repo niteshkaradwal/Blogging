@@ -7,7 +7,7 @@ gem 'rails', '3.2.11'
 
 group :development, :test do
   gem 'mysql2'
-  gem 'thin'
+  
   gem 'debugger'
 end
 
