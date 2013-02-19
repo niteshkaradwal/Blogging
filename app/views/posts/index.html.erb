@@ -12,7 +12,8 @@ $(document).ready(function(){
 </script>
 <h1>All Registered user's posts</h1>
 
-<table id="thetable" cellspacing="0">
+<%= render 'form' %>
+<table id="thetable" cellspacing="0", class = "table table-striped">
   <tr> 
     <th>Title</th>
     <th>Body</th>
@@ -38,7 +39,7 @@ $(document).ready(function(){
       <td><%= post.user.name %></td>
       <td><%= post.user.email %></td>
       <td><b><%= link_to 'Show', post, :class => "btn btn-mini btn-primary" %></b></td>
-      
+    
     <% end %>
   </tr>
 <% end %>
