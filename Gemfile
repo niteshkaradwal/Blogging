@@ -7,6 +7,8 @@ gem 'rails', '3.2.11'
 
 group :development, :test do
   gem 'mysql2'
+  gem 'thin'
+  gem 'debugger'
 end
 
 group :production do
@@ -41,5 +43,6 @@ gem 'jquery-rails'
 # gem 'capistrano'
 
 # To use debugger
- gem 'debugger'
+
 gem 'devise'
+gem 'bootstrap-sass', '~> 2.3.0.0'
