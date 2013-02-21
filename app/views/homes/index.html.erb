@@ -3,28 +3,17 @@
   <center>Welcome <%= current_user.name %><br/><br/>
   <p align = left ><%= notification_for_current_user %></p>
   
-  
   <b><h1> Follow's posts </h1></b><br/>
   <table id = "tab" class = "table table-striped">
-
     <% users = current_user.followers.collect{ |follower| follower.follower_id} %>
-    <% users.each do |user| %>
-      <% user = User.find(user) %>
-        <% user.posts.each do |post| %>
-          <tr>
-            <td><%= link_to " #{ user.name } ", post, :class => "btn btn-mini btn-primary" %></td> 
-            <td><%= user.email %> <br/></td>
-            <td><%= post.title %></td>&nbsp;&nbsp;&nbsp;&nbsp;
-            <td><%= post.body %></td><br/><br/>
-          
-            
-            
-          </tr>
-        <% end %>
-      
-    <% end %>
-    
+    <tr>
+      <% users.each do |user| %>
+        <% show_post_of_followers(user).each do |detail| %>
+          <td> <%= detail %>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <% end %></tr>
+      <% end %>
   </table>      
+
 <% else %>
   <h1><center>Welcome Guest</h1>
   <center><%= link_to 'SignIn', new_user_session_path,  :class => "btn btn-primary" %>&nbsp;&nbsp;
