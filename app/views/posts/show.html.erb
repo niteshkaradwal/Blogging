@@ -16,14 +16,8 @@
   <%= @post.body %>
 </p>
 
-<% count = 0 %>
-<% if @post.likes.where(:user_id => current_user.id)[0].blank? %>
-  <%= link_to "like", new_post_like_path(@post) %>
-<% else %>
-  <% like = @post.likes.where(:user_id => current_user.id)[0] %>
-  <%= link_to "Unlike", post_like_path(@post, like.id), method: :delete %>
-<% end %>
-<%= @post.likes.count %>
+<%= like_for_post(@post) %>
+
 
 <h2> Comments </h2>
   <div id="comments">
@@ -31,35 +25,7 @@
   </div>
   
 <h2> Add a comment:</h2>
-<%= form_for([@post, @post.comments.build], :remote => true) do |f| %>
-  <div class="field">
-    <%= f.label :content %><br />
-    <%= f.text_field :content %>
-  </div>
-  <div class="field">
-    <%= f.label :date %><br />
-    <%= Time.now.strftime("%d/%m/%Y") %>
-    <%= f.hidden_field(:post_date, :value => Time.now.strftime("%d/%m/%Y")) %>
-  </div>
-  <div class="field">
-    <%= f.hidden_field :post_id %>
-  </div>  
-  <% if @post.user_id == current_user.id %>
-    <div class="field">
-      <%= f.hidden_field(:status, :value => true) %>
-    </div>
-  <% else %>
-    <div class="field">
-      <%= f.hidden_field(:status, :value => false) %>
-    </div>
-  <% end %> 
-  <div class="field">
-    <%= f.hidden_field(:commenter_id, :value => current_user.id) %>
-  </div>  
-  <div class="actions">
-    <%= f.submit %>
-  </div>  
-<% end %>
+<%= render 'form_for_comment' %>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', posts_path %>

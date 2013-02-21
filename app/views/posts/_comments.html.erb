@@ -6,7 +6,7 @@
       :-- 
       <%= comment.post_date %><br/>
       <%= like_for_comments(comment) %>
-      <%= total_count = comment.likes.count %>
+      
       <%= authentication_for_destroy?(comment) %>
     </p>
   <% else %>

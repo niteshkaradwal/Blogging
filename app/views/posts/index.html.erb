@@ -1,20 +1,14 @@
+
 <head>
   
-<script>
-$(document).ready(function(){
-  
-    $("tr").hide();
-    $("tr").show(1000);
-    $("tr").slideDown(1000);
-  
-});
+
 </script>
 <h1>All Registered user's posts</h1>
 
 <%= render 'form' %>
 <div id="post">
-<table id="thetable" cellspacing="0", class = "table table-striped">
-  <tr> 
+<table id="tab" cellspacing="0", class = "table table-striped">
+  <tr id="trow"> 
     <th>Title</th>
     <th>Body</th>
     <th>User_Name</th>

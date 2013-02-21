@@ -1,46 +1,30 @@
 
-<head>
-  
-<script>
-$(document).ready(function(){
-  
-    $("#foll").hide();
-    $("#foll").show(1000);
-  
-});
-</script>
-</head>
-<% i = false %>
 <% if current_user %>
   <center>Welcome <%= current_user.name %><br/><br/>
-  <% count = 0 %>
-  <% current_user.posts.each do |post| %>
-    <% if post.comments.where(:status => false).present? %>
-     <%= post.comments.where(:status => false).count %>
-       <%= link_to "Notification ", comments_path %><br/><br/>
-    <% end %>
-  <% end %>
+  <p align = left ><%= notification_for_current_user %></p>
   
- 
-    
-  <b id = "foll"><h1> Follow's posts </h1></b><br/>
-  <table  cellspacing="0", class = "table table-striped">
+  
+  <b><h1> Follow's posts </h1></b><br/>
+  <table id = "tab" class = "table table-striped">
 
-  
-  <% current_user.followers.each do |user| %>
-    <% @name = User.find(user.follower_id) %>
-    <% @post = @name.posts %>
-    <% if @post.present? %>
-      <% @post.each do |pp| %>
-        <tr>
-          <td><%= link_to " #{ @name.name } ", pp, :class => "btn btn-mini btn-primary" %></td> 
-          <td><%= @name.email %> <br/></td>
-          <td><%= pp.title %></td>&nbsp;&nbsp;&nbsp;&nbsp;
-          <td><%= pp.body %></td><br/><br/>
-        </tr>
-      <% end %>
-    <% end %>  
-  <% end %>  
+    <% users = current_user.followers.collect{ |follower| follower.follower_id} %>
+    <% users.each do |user| %>
+      <% user = User.find(user) %>
+        <% user.posts.each do |post| %>
+          <tr>
+            <td><%= link_to " #{ user.name } ", post, :class => "btn btn-mini btn-primary" %></td> 
+            <td><%= user.email %> <br/></td>
+            <td><%= post.title %></td>&nbsp;&nbsp;&nbsp;&nbsp;
+            <td><%= post.body %></td><br/><br/>
+          
+            
+            
+          </tr>
+        <% end %>
+      
+    <% end %>
+    
+  </table>      
 <% else %>
   <h1><center>Welcome Guest</h1>
   <center><%= link_to 'SignIn', new_user_session_path,  :class => "btn btn-primary" %>&nbsp;&nbsp;

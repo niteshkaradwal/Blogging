@@ -1,0 +1,29 @@
+<%= form_for([@post, @post.comments.build], :remote => true) do |f| %>
+  <div class="field">
+    <%= f.label :content %><br />
+    <%= f.text_field :content %>
+  </div>
+  <div class="field">
+    <%= f.label :date %><br />
+    <%= Time.now.strftime("%d/%m/%Y") %>
+    <%= f.hidden_field(:post_date, :value => Time.now.strftime("%d/%m/%Y")) %>
+  </div>
+  <div class="field">
+    <%= f.hidden_field :post_id %>
+  </div>  
+  <% if @post.user_id == current_user.id %>
+    <div class="field">
+      <%= f.hidden_field(:status, :value => true) %>
+    </div>
+  <% else %>
+    <div class="field">
+      <%= f.hidden_field(:status, :value => false) %>
+    </div>
+  <% end %> 
+  <div class="field">
+    <%= f.hidden_field(:commenter_id, :value => current_user.id) %>
+  </div>  
+  <div class="actions">
+    <%= f.submit %>
+  </div>  
+<% end %>
