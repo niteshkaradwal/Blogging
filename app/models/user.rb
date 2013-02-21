@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   
   # attr_accessible :title, :body
   has_many :followers
-  has_many :follows, :class_name => "Follower"
+  has_many :followers_records, :class_name => "User", :through => :followers
   has_many :posts
   has_many :comments
 end
