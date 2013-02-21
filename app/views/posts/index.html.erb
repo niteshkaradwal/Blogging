@@ -1,6 +1,5 @@
 <head>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
-</script>
+  
 <script>
 $(document).ready(function(){
   
@@ -12,7 +11,8 @@ $(document).ready(function(){
 </script>
 <h1>All Registered user's posts</h1>
 
-
+<%= render 'form' %>
+<div id="post">
 <table id="thetable" cellspacing="0", class = "table table-striped">
   <tr> 
     <th>Title</th>
@@ -21,31 +21,14 @@ $(document).ready(function(){
     <th>User_Email</th>
     <th></th>
     <th></th>
-    
   </tr>
-   <tbody> 
-<% @posts.each do |post| %>
-  <tr class="first">
-    <% if post.user_id == current_user.id %> 
-      <td><%= post.title %></td>
-      <td><%= post.body %></td>
-      <td><%= post.user.name %></td>
-      <td><%= post.user.email %></td>
-      <td><b><%= link_to 'Show', post, :class => "btn btn-mini btn-primary" %></b></td>
-      <td><b><%= link_to 'delete', post, method: :delete, :class => "btn btn-mini btn-primary" %></b></td>
-    <% else %>
-      <td><%= post.title %></td>
-      <td><%= post.body %></td>
-      <td><%= post.user.name %></td>
-      <td><%= post.user.email %></td>
-      <td><b><%= link_to 'Show', post, :class => "btn btn-mini btn-primary" %></b></td>
-    
-    <% end %>
-  </tr>
-<% end %>
+
+<%= render :partial => "post", :collection => @posts %>
 </table>
+</div>
 
-<br />
 
-<%= link_to 'New Post', new_post_path %>
+
+ 
+
 <%= link_to 'Home page', root_path %>

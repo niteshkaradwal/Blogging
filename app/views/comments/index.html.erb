@@ -1,22 +1,23 @@
-<b> Name <b>&nbsp;&nbsp;
+<b> Name </b>&nbsp;&nbsp;
 <b> Comment </b><br/>
-<% i=0 %>
+
 <% @posts.each do |post| %>
   <% post.comments.each do |comment| %>
+  
     <% if comment.status == false %>
-      <% if i==0 %>
-        <b> Post :-- </b>
-        <%= post.body %><br/>
-        <% i+=1 %>
-      <% end %>   
+      <b> Post :-- </b>
+      <%= post.body %><br/>
       <%= comment.user.name %>
       :--
       <%= comment.content %>
+     
+    
       <%= link_to 'Accept', post_comment_path(post,comment), method: :put %>
       <%= link_to 'Reject', post_comment_path(post,comment), method: :delete %><br/>
     <% end %>
-  <% end %>
-  <% i=0 %>
+  <% end %>  
 <% end %>
+ 
+
 
     

@@ -12,7 +12,7 @@ $(document).ready(function(){
 </head>
 
 <h1>Listing Registered users</h1>
-
+  
 <table id= "tab" class = "table table-striped">
   <tr>
     <th>Name</th>
@@ -36,7 +36,7 @@ $(document).ready(function(){
       <td><%= user.email %></td>
      
       
-      <% current_user.follows.each do |followe| %>
+      <% current_user.followers.each do |followe| %>
         <% if followe.user_id == current_user.id && followe.follower_id == user.id %>
           <td><%= button_to 'Unfollow', followe, method: :delete, data: { confirm: 'are you sure?' } , :class => "btn btn-mini btn-primary"%></td>
           <% i=1 %> 

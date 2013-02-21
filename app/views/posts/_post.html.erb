@@ -1,0 +1,12 @@
+<tr>
+
+  <td><%= post.title %></td>
+  <td><%= post.body %></td>
+  <td><%= post.user.name %></td>
+  <td><%= post.user.email %></td>
+  <td><b><%= link_to 'Show', post, :class => "btn btn-mini btn-primary" %></b></td>
+  <% if post.user_id == current_user.id %> 
+  
+    <td><b><%= link_to 'delete', post, method: :delete, :class => "btn btn-mini btn-inverse" %></b></td>
+  <% end %>
+</tr>

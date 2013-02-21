@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
-</script>
+  
 <script>
 
 $(document).ready(function(){
@@ -29,7 +28,6 @@ $(document).ready(function(){
      
         <li id = "bl"><%= link_to 'Blogging' , root_path, :class => "btn btn-info" %></li>
         <li id = "blo"><%= link_to 'Bloggers', new_follower_path, :method => :get, :class => "btn btn-info" %></li>
-        <li id = "neww"><%= link_to 'New post', new_post_path, :method => :get, :class => "btn btn-info" %></li>
         <li id = "shw"><%= link_to 'Show all posts', posts_path, :method => :get, :class => "btn btn-info" %></li>
         <% if current_user %>
             <ul class="nav nav-tabs">
