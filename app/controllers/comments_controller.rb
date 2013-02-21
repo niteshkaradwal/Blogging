@@ -2,13 +2,12 @@ class CommentsController < ApplicationController
   before_filter :authenticate_user!
   
   def index
-    @posts = current_user.posts.all
+    @posts = current_user.posts
   end
   
   def create
     @post = Post.find(params[:post_id])
     @comment = @post.comments.create(params[:comment])
-    redirect_to post_path(@post)
   end 
   
   def update
@@ -16,6 +15,7 @@ class CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comment.update_attributes(:status => true)
     @comments = @post.comments.all
+      
     i=0
     @comments.each do |comment|
       if comment.status == false
@@ -30,27 +30,18 @@ class CommentsController < ApplicationController
   end
   
   def destroy
-    @comment = Comment.find(params[:id])
-    @post = Post.find(params[:post_id])
-    @user = @comment.post_id
+    comment = Comment.find(params[:id])
+    post = comment.post_id
+    
   
-    if Post.find(@user).user_id == current_user.id || current_user.id == @comment.commenter_id
-      if @comment.status == true 
-        @comment.destroy
-        redirect_to post_path(@post)
+    if comment.commenter_is_current_user?(current_user) || comment.post.postOwner_is_current_user?(current_user)  
+      if comment.status == true 
+        comment.destroy
+        redirect_to post_path(comment.post_id)
       else
-        i=0
-        @comment.destroy
-        @comments = @post.comments.all
-        @comments.each do |comment|
-          if comment.status == false
-            i=1
-            break
-          else
-            i=0
-          end
-        end
-        if i==1
+        comment.destroy
+        if Comment.where("post_id = ? AND status = ?", post, false).present?
+   
           redirect_to comments_path
         else
           redirect_to root_path
