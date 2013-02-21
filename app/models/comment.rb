@@ -12,9 +12,4 @@ class Comment < ActiveRecord::Base
   def more_comment_exists?(post)
     post_id == post && status == false
   end
-  
-   
-  
-  
-  
 end

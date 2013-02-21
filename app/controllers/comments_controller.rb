@@ -31,7 +31,7 @@ class CommentsController < ApplicationController
   
   def destroy
     comment = Comment.find(params[:id])
-    post = comment.post_id
+    
     
   
     if comment.commenter_is_current_user?(current_user) || comment.post.postOwner_is_current_user?(current_user)  
@@ -40,7 +40,7 @@ class CommentsController < ApplicationController
         redirect_to post_path(comment.post_id)
       else
         comment.destroy
-        if Comment.where("post_id = ? AND status = ?", post, false).present?
+        if Comment.where("post_id = ? AND status = ?", comment.post_id, false).present?
    
           redirect_to comments_path
         else
