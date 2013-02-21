@@ -1,23 +1,13 @@
-
-
 </head>
-
 <h1>Listing Registered users</h1>
-  
 <table id= "tab" class = "table table-striped">
   <tr>
     <th>Name</th>
     <th>Email_id</th> 
-    
-    
     <th></th>
     <th></th>
   </tr>
-
-  <%count = 0 %>
   <% @users.each do |user| %>
-  
-    <% count += 1 %>
     <% if user.id == current_user.id %>
       <% next %>
     <% end %>
@@ -25,11 +15,9 @@
     <tr>  
       <td><%= user.name %>&nbsp;&nbsp;&nbsp;&nbsp;</td>
       <td><%= user.email %></td>
-     
-      
-      <% current_user.followers.each do |followe| %>
-        <% if followe.user_id == current_user.id && followe.follower_id == user.id %>
-          <td><%= button_to 'Unfollow', followe, method: :delete, data: { confirm: 'are you sure?' } , :class => "btn btn-mini btn-primary"%></td>
+      <% current_user.followers.each do |follower| %>
+        <% if check_for_follow_unfollow_link?(follower,user) %>
+          <td><%= button_to 'Unfollow', follower, method: :delete, data: { confirm: 'are you sure?' } , :class => "btn btn-mini btn-primary"%></td>
           <% i=1 %> 
           <% break %>
         <% else %>
@@ -58,5 +46,5 @@
     </tr>
   <% end %>
 </table>
-Total Registers Users <%= count %><br/><br/>
+Total Registers Users <%= @users.count %><br/><br/>
 <%= link_to 'View followers', followers_path, :class => "btn btn-mini btn-primary" %>
