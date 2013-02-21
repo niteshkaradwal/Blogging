@@ -20,7 +20,7 @@ class PostsController < ApplicationController
   end
   
   def destroy
-    post = current_user.posts.find(params[:id])
+    post = Post.find(params[:id])
     if post.postOwner_is_current_user?(current_user)
       post.destroy
     redirect_to posts_path  
