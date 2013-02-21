@@ -7,7 +7,7 @@
       <%= comment.post_date %><br/>
       <%= like_for_comments(comment) %>
       
-      <%= authentication_for_destroy?(comment) %>
+      <%= authentication_for_destroy(comment) %>
     </p>
   <% else %>
     <% if current_user.id == comment.commenter_id%>

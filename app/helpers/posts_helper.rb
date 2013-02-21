@@ -10,7 +10,7 @@ module PostsHelper
     return link
   end
   
-  def authentication_for_destroy?(comment)
+  def authentication_for_destroy(comment)
     if comment.commenter_id == current_user.id || comment.post.user.id == current_user.id 
       link = link_to 'Destroy', [comment.post, comment], method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-link" 
       return link
