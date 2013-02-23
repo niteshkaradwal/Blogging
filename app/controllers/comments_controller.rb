@@ -7,7 +7,9 @@ class CommentsController < ApplicationController
   
   def create
     @post = Post.find(params[:post_id])
+    
     @comment = @post.comments.create(params[:comment])
+    
   end 
   
   def update
@@ -18,7 +20,7 @@ class CommentsController < ApplicationController
       
     i=0
     @comments.each do |comment|
-      if comment.status == false
+      unless comment.status 
         i=1
       end
     end
@@ -31,16 +33,13 @@ class CommentsController < ApplicationController
   
   def destroy
     comment = Comment.find(params[:id])
-    
-    
-  
     if comment.commenter_is_current_user?(current_user) || comment.post.postOwner_is_current_user?(current_user)  
-      if comment.status == true 
+      if comment.status 
         comment.destroy
         redirect_to post_path(comment.post_id)
       else
         comment.destroy
-        if Comment.where("post_id = ? AND status = ?", comment.post_id, false).present?
+        if Comment.more_comment_exists?(comment)
    
           redirect_to comments_path
         else

@@ -3,7 +3,7 @@ class LikesController < ApplicationController
   def new
     @post = Post.find(params[:post_id])
     @post.likes.create(:user_id => current_user.id)
-    redirect_to post_path(@post)
+    
   end 
   
   def destroy
@@ -12,7 +12,7 @@ class LikesController < ApplicationController
   if @like
     @like.destroy
   end
-  redirect_to post_path(@like.liker)
+  #redirect_to post_path(@like.liker)
   end
   
 end

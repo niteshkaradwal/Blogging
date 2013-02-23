@@ -11,7 +11,11 @@ class User < ActiveRecord::Base
   
   # attr_accessible :title, :body
   has_many :followers
-  has_many :followers_records, :class_name => "User", :through => :followers
+  has_many :follws, :class_name => "Follower", :foreign_key => "follower_id"
+  has_many :followed, :through => :followers, :source => "follw", :class_name => "User"
+  has_many :follow_users, :through => :follws, :source => "user", :class_name => "User"
   has_many :posts
   has_many :comments
 end
+
+
