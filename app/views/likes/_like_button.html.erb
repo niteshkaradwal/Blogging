@@ -1,0 +1,9 @@
+<p id = "like">
+
+<% if like_exist_or_not?(post) %> 
+  <%= link_to "like #{post.likes.count}", new_post_like_path(post), :remote => true  %> 
+<% else %>
+  <%= link_to "Unlike #{post.likes.count}", post_like_path(post, search_for_like(post).id), method: :delete, :remote => true %>
+<% end %>
+
+</p>

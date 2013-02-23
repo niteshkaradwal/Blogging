@@ -16,8 +16,8 @@
   <%= @post.body %>
 </p>
 
-<%= like_for_post(@post) %>
-
+<%= render :partial => "likes/like_button", :locals => { :post => @post } %>
+ 
 
 <h2> Comments </h2>
   <div id="comments">
@@ -25,6 +25,7 @@
   </div>
   
 <h2> Add a comment:</h2>
+
 <%= render 'form_for_comment' %>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |

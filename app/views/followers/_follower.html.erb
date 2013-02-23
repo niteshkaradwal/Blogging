@@ -1,0 +1,34 @@
+<h1>Listing Registered users</h1>
+<table id= "tab" class = "table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Email_id</th> 
+    <th></th>
+    <th></th>
+  </tr>
+  <% @users.each do |user| %>
+    <% if user.id == current_user.id %>
+      <% next %>
+    <% end %>
+    <% i=0 %>
+    <tr = #{<%= user.id %>}>  
+      <td><%= user.name %>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td><%= user.email %></td>
+      <% current_user.followers.each do |follower| %>
+        <% if check_for_follow_unfollow_link?(follower,user) %>
+          <td id="trow"><%= button_to 'Unfollow', follower, method: :delete, data: { confirm: 'are you sure?' }, :class => "btn btn-mini btn-danger"%></td>
+          <% i=1 %> 
+          <% break %>
+        <% else %>
+          <% i=0 %> 
+        <% end %> 
+      <% end %>   
+      <% if i==0 %>
+      <%= render :partial => "form", :locals => { :user => user } %>
+      
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+Total Registers Users <%= @users.count %><br/><br/>
+<%= link_to 'View followers', followers_path, :class => "btn btn-mini btn-primary" %>

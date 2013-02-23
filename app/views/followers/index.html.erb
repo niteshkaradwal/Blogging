@@ -12,18 +12,15 @@
     <th></th>
   </tr>
 <% count = 0 %>
-<% @users.each do |user| %>
-  <% user.followers.each do |follower| %>
-    <% if follower.follower_id == current_user.id %>
-      <tr>
-        <% count += 1 %>
-        <td><%= user.name %></td>
-        <td><%= user.email %></td>
-       </tr>
-    <% end %>
-  <% end %>
-<% end %>   
-Total followers <%= count %> 
+<% current_user.follow_users.each do |follower| %>
+  <tr>
+    <td><%= follower.name %></td>
+    <td><%= follower.email %></td>
+  </tr>
+<% end %>
+
+   
+Total followers <%= current_user.follow_users.count %> 
 </table>
 
 <br />

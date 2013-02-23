@@ -5,13 +5,14 @@
   
   <b><h1> Follow's posts </h1></b><br/>
   <table id = "tab" class = "table table-striped">
-    <% users = current_user.followers.collect{ |follower| follower.follower_id} %>
-    <tr>
-      <% users.each do |user| %>
-        <% show_post_of_followers(user).each do |detail| %>
+    <% @current_user_followed.each do |follower|%>
+      <% follower.posts.each do |post| %>
+      
+        <% show_post_of_followers(follower, post).each do |detail| %>
           <td> <%= detail %>&nbsp;&nbsp;&nbsp;&nbsp;</td>
         <% end %></tr>
-      <% end %>
+      <% end %>  
+    <% end %>  
   </table>      
 
 <% else %>
